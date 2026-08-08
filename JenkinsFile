@@ -17,6 +17,7 @@ pipeline {
         stage('Verify .NET') {
             steps {
                 bat 'dotnet --info'
+                bat 'dotnet --version'
             }
         }
 
