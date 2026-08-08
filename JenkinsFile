@@ -22,19 +22,19 @@ pipeline {
 
         stage('Restore') {
             steps {
-                bat 'dotnet restore UserAccessManagement.sln'
+                bat 'dotnet restore DIAS.slnx'
             }
         }
 
         stage('Build') {
             steps {
-                bat 'dotnet build UserAccessManagement.sln --configuration Release --no-restore'
+                bat 'dotnet build DIAS.slnx --configuration Release --no-restore'
             }
         }
 
         stage('Test') {
             steps {
-                bat 'dotnet test UserAccessManagement.sln --configuration Release --no-build'
+                bat 'dotnet test DIAS.slnx --configuration Release --no-build'
             }
         }
 
