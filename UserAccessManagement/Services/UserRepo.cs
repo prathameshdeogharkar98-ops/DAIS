@@ -10,14 +10,19 @@ namespace UserAccessManagement.Services
     public class UserRepo : IUserRepo
     {
         private readonly IDataManagementService _dataManagementService;
+        private readonly PasswordHashingUtil _passwordHashingUtil;
 
-        public UserRepo(IDataManagementService dataManagementService)
+        public UserRepo(IDataManagementService dataManagementService, PasswordHashingUtil passwordHashingUtil)
         {
             _dataManagementService = dataManagementService;
+            _passwordHashingUtil = passwordHashingUtil;
         }
 
         public Dictionary<string, object> createOrUpdateUser(UserDTO userDTO)
         {
+
+            var hashedPassword = _passwordHashingUtil.generateHashPassword(userDTO.PasswordHash);
+
             SqlParameter[] parameters =
             {
                 new SqlParameter("@Action", userDTO.Action),
@@ -26,7 +31,7 @@ namespace UserAccessManagement.Services
                 new SqlParameter("@LastName", (object?)userDTO.LastName ?? DBNull.Value),
                 new SqlParameter("@Email", userDTO.Email),
                 new SqlParameter("@MobileNumber", (object?)userDTO.MobileNumber ?? DBNull.Value),
-                new SqlParameter("@PasswordHash", userDTO.PasswordHash),
+                new SqlParameter("@PasswordHash", hashedPassword),
                 new SqlParameter("@IsEmailVerified", userDTO.IsEmailVerified),
                 new SqlParameter("@IsMobileVerified", userDTO.IsMobileVerified),
                 new SqlParameter("@Status", userDTO.Status),
@@ -71,6 +76,28 @@ namespace UserAccessManagement.Services
             int result = Convert.ToInt32(parameters.Last().Value);
 
             return new Dictionary<string, object> { { "Output", result } };
+        }
+
+        public object listUsers()
+        {
+            SqlParameter[] parameters =
+            {
+            };
+            var dt = _dataManagementService.ExecuteDataTable(
+                    CommonUtils.usp_listUsers,
+                    CommandType.StoredProcedure,
+                    parameters);
+
+            Dictionary<string, object> dictionary =
+                dt.Rows[0].Table.Columns
+                    .Cast<DataColumn>()
+                    .ToDictionary(
+                        column => column.ColumnName,
+                        column => dt.Rows[0][column] == DBNull.Value
+                            ? null
+                            : dt.Rows[0][column]
+                    )!;
+            return dictionary;
         }
     }
 }

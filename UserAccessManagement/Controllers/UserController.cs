@@ -29,14 +29,42 @@ namespace UserAccessManagement.Controllers
             }
         }
 
+        [HttpPost("delete")]
+        public object deleteUser(DelUserDTO delUserDTO)
+        {
+            try
+            {
+                var response = _userRepo.deleteUser(delUserDTO.CustomerId, delUserDTO.LoggedInUser);
+                return response;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
 
-        [HttpGet]
-        public object Test()
+
+        [HttpGet("id")]
+        public object getUserById(String customerId)
         {
             try
             {
                 
                 return new Dictionary<string,string>{{"Testing", "Working" }};
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        [HttpGet("list")]
+        public object listUsers()
+        {
+            try
+            {
+                var dt = _userRepo.listUsers();
+                return new Dictionary<string, object>{ { "Testing", dt } };
             }
             catch (Exception ex)
             {

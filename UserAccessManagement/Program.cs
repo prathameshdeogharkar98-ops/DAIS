@@ -1,6 +1,7 @@
 using UserAccessManagement.Interfaces;
 using UserAccessManagement.Services;
 using Utilities;
+using Utilities.Commons;
 using Utilities.DataManagementService;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IUserRepo,UserRepo>();
 builder.Services.AddScoped<IDataManagementService, DataManagementService>();
+builder.Services.AddScoped<PasswordHashingUtil>();
 builder.Services.AddScoped<ConnectionStringBuilder>();
 
 var app = builder.Build();

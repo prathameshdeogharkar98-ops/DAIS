@@ -11,6 +11,6 @@ namespace Utilities.Commons
 
         public static String usp_ManageUser = "usp_ManageUser";
         public static String usp_DeleteUser = "usp_DeleteUser";
-
+        public static String usp_listUsers = "usp_ListUsers";
     }
 }
