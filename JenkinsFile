@@ -34,7 +34,7 @@ pipeline {
 
         stage('Publish') {
             steps {
-                bat 'dotnet publish UserAccessManagement/Web.csproj --configuration Release --output "%WORKSPACE%\\publish" --no-build'
+                bat 'dotnet publish UserAccessManagement/UserAccessManagement.csproj --configuration Release --output "%WORKSPACE%\\publish" --no-build'
             }
         }
     }
