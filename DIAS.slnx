@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="UserAccessManagement/UserAccessManagement.csproj" />
+  <Project Path="Utilities/Utilities.csproj" Id="0f453288-f15d-412d-8ac7-2647117b93ce" />
+</Solution>
