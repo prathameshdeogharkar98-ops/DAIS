@@ -17,22 +17,20 @@ pipeline {
         stage('Verify .NET') {
             steps {
                 bat 'dotnet --info'
-                bat 'dotnet --version'
             }
         }
 
         stage('Restore') {
             steps {
-                bat 'dotnet restore DIAS.slnx'
+                bat 'dotnet restore UserAccessManagement.sln'
             }
         }
 
         stage('Build') {
             steps {
-                bat 'dotnet build DIAS.slnx --configuration Release --no-restore'
+                bat 'dotnet build UserAccessManagement.sln --configuration Release --no-restore'
             }
         }
-
 
         stage('Publish') {
             steps {
