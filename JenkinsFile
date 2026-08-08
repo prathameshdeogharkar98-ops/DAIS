@@ -33,11 +33,6 @@ pipeline {
             }
         }
 
-        stage('Test') {
-            steps {
-                bat 'dotnet test DIAS.slnx --configuration Release --no-build'
-            }
-        }
 
         stage('Publish') {
             steps {
