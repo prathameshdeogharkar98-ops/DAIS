@@ -1,0 +1,57 @@
+pipeline {
+    agent any
+
+    environment {
+        DOTNET_CLI_TELEMETRY_OPTOUT = '1'
+        DOTNET_NOLOGO = 'true'
+    }
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Verify .NET') {
+            steps {
+                bat 'dotnet --info'
+            }
+        }
+
+        stage('Restore') {
+            steps {
+                bat 'dotnet restore UserAccessManagement.sln'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                bat 'dotnet build UserAccessManagement.sln --configuration Release --no-restore'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                bat 'dotnet test UserAccessManagement.sln --configuration Release --no-build'
+            }
+        }
+
+        stage('Publish') {
+            steps {
+                bat 'dotnet publish Web/Web.csproj --configuration Release --output "%WORKSPACE%\\publish" --no-build'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Build completed successfully.'
+        }
+
+        failure {
+            echo 'Build failed.'
+        }
+    }
+}
