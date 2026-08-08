@@ -5,7 +5,7 @@ using UserAccessManagement.Interfaces;
 
 namespace UserAccessManagement.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/users")]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -25,6 +25,21 @@ namespace UserAccessManagement.Controllers
                 return response;
             }
             catch (Exception ex) {
+                throw new Exception(ex.Message);
+            }
+        }
+
+
+        [HttpGet]
+        public object Test()
+        {
+            try
+            {
+                
+                return new Dictionary<string,string>{{"Testing", "Working" }};
+            }
+            catch (Exception ex)
+            {
                 throw new Exception(ex.Message);
             }
         }
