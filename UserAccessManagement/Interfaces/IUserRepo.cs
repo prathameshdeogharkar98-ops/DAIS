@@ -8,5 +8,6 @@ namespace UserAccessManagement.Interfaces
         public Dictionary<string, object> createOrUpdateUser(UserDTO userDTO);
         public Dictionary<string, object> deleteUser(String CustId, String loggedInUser);
         public object listUsers();
+        public object getUserById(String customerId);
     }
 }

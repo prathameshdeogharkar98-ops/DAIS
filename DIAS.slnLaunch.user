@@ -8,7 +8,7 @@
         "DebugTarget": "https"
       },
       {
-        "Path": "UserAccessManagement\\UserAccessManagement.csproj",
+        "Path": "Administration\\Administration.csproj",
         "Action": "Start",
         "DebugTarget": "https"
       }

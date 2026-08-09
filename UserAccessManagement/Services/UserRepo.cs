@@ -4,6 +4,7 @@ using UserAccessManagement.Entities.DTOs;
 using UserAccessManagement.Interfaces;
 using Utilities.Commons;
 using Utilities.DataManagementService;
+using Utilities.Extensions;
 
 namespace UserAccessManagement.Services
 {
@@ -78,6 +79,27 @@ namespace UserAccessManagement.Services
             return new Dictionary<string, object> { { "Output", result } };
         }
 
+        public object getUserById(String customerId)
+        {
+            SqlParameter[] parameters =
+            {
+                new SqlParameter("@CustomerId", customerId)
+            };
+            var dt = _dataManagementService.ExecuteDataTable(
+                    CommonUtils.usp_getUserByID,
+                    CommandType.StoredProcedure,
+                    parameters);
+
+            var lstOfUsers = dt.convtListOfDictionary();
+
+            if (lstOfUsers.Count<=0)
+            {
+                throw new Exception("No user found");
+            }
+
+            return lstOfUsers.First();
+        }
+
         public object listUsers()
         {
             SqlParameter[] parameters =
@@ -88,16 +110,9 @@ namespace UserAccessManagement.Services
                     CommandType.StoredProcedure,
                     parameters);
 
-            Dictionary<string, object> dictionary =
-                dt.Rows[0].Table.Columns
-                    .Cast<DataColumn>()
-                    .ToDictionary(
-                        column => column.ColumnName,
-                        column => dt.Rows[0][column] == DBNull.Value
-                            ? null
-                            : dt.Rows[0][column]
-                    )!;
-            return dictionary;
+            var lstOfUsers = dt.convtListOfDictionary();
+
+            return lstOfUsers;
         }
     }
 }

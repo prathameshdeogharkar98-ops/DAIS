@@ -50,7 +50,7 @@ namespace UserAccessManagement.Controllers
             try
             {
                 
-                return new Dictionary<string,string>{{"Testing", "Working" }};
+                return _userRepo.getUserById(customerId);
             }
             catch (Exception ex)
             {
@@ -64,7 +64,7 @@ namespace UserAccessManagement.Controllers
             try
             {
                 var dt = _userRepo.listUsers();
-                return new Dictionary<string, object>{ { "Testing", dt } };
+                return dt;
             }
             catch (Exception ex)
             {
