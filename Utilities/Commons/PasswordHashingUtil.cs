@@ -28,12 +28,29 @@ namespace Utilities.Commons
 
         public String generateHashPassword(String rawPassword)
         {
-            var salt = generateSalt();
+            
+            var  salt = generateSalt();
+            
             var combinedString = rawPassword + salt;
             var hasher = new PasswordHasher<object>();
             string passwordHash = hasher.HashPassword(null!, combinedString);
             var password = "passwordhasher" + "$" + salt + "$" + passwordHash;
             return password;
+        }
+
+        public bool verifyHashedPassword(string storedHash,string saltPass)
+        {
+            var hasher = new PasswordHasher<object>();
+            var result = hasher.VerifyHashedPassword(null,storedHash,saltPass);
+            if(result== PasswordVerificationResult.Success)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            
         }
 
 
