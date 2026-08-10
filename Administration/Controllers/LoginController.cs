@@ -1,5 +1,6 @@
 ﻿using Administration.Entities.DTOs;
 using Administration.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +17,7 @@ namespace Administration.Controllers
             _loginRepo = loginRepo;
         }
 
+        [Authorize]
         [HttpGet("test")]
         public object test()
         {

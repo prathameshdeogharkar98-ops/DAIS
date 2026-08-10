@@ -8,10 +8,10 @@ namespace Utilities.Commons
 {
     public static class CommonUtils
     {
-
         public static String usp_ManageUser = "usp_ManageUser";
         public static String usp_DeleteUser = "usp_DeleteUser";
         public static String usp_listUsers = "usp_ListUsers";
         public static String usp_getUserByID = "usp_getUserByID";
+        public static String usp_ManageLogin = "usp_ManageLogin";
     }
 }
