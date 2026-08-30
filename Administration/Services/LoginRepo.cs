@@ -37,14 +37,14 @@ namespace Administration.Services
 
             if (lstOfUsers.Count <= 0)
             {
-                throw new Exception("No user found");
+                return new Dictionary<string, object> { { "status", 0 }, { "message", "Invalid User" } };
             }
 
             var userInfo =  lstOfUsers.First();
 
             if (bool.Parse(userInfo["LoginStatus"].ToString()))
             {
-                throw new Exception("User is Locked!!");
+                return new Dictionary<string, object> { { "status", 0 }, { "message", "User is Locked!!" } };
             }
 
             var hashedPassword = userInfo["PasswordHash"].ToString();
