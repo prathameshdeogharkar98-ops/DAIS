@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using UserAccessManagement.Entities.DTOs;
 using UserAccessManagement.Interfaces;
@@ -6,6 +7,7 @@ using UserAccessManagement.Interfaces;
 namespace UserAccessManagement.Controllers
 {
     [Route("api/users")]
+    [Authorize]
     [ApiController]
     public class UserController : ControllerBase
     {

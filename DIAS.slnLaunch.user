@@ -11,6 +11,11 @@
         "Path": "Administration\\Administration.csproj",
         "Action": "Start",
         "DebugTarget": "https"
+      },
+      {
+        "Path": "UserAccessManagement\\UserAccessManagement.csproj",
+        "Action": "Start",
+        "DebugTarget": "https"
       }
     ]
   }
