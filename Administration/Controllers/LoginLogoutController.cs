@@ -8,11 +8,11 @@ namespace Administration.Controllers
 {
     [Route("api/auth")]
     [ApiController]
-    public class LoginController : ControllerBase
+    public class LoginLogoutController : ControllerBase
     {
         private readonly ILoginRepo _loginRepo;
 
-        public LoginController(ILoginRepo loginRepo)
+        public LoginLogoutController(ILoginRepo loginRepo)
         {
             _loginRepo = loginRepo;
         }
@@ -37,6 +37,20 @@ namespace Administration.Controllers
             try
             {
                 var response = _loginRepo.loginUser(loginDTO);
+                return response;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        [HttpPost("logout")]
+        public object userLogout(LogoutDTO logoutDTO)
+        {
+            try
+            {
+                var response = _loginRepo.logoutUser(logoutDTO);
                 return response;
             }
             catch (Exception ex)

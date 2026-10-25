@@ -85,5 +85,37 @@ namespace Administration.Services
             }
             
         }
+
+        public Dictionary<string, object> logoutUser(LogoutDTO logoutDTO)
+        {
+            SqlParameter[] parametersLogin =
+                    {
+                        new SqlParameter("@CustomerId", logoutDTO.userId),
+                        //new SqlParameter("@JWTToken", token),
+                        //new SqlParameter("@RefreshToken", refreshToken),
+                        new SqlParameter("@Output", SqlDbType.Int)
+                            {
+                                Direction = ParameterDirection.Output
+                            }
+                    };
+
+            _dataManagementService.ExecuteNonQuery(
+                CommonUtils.usp_LogoutUser,
+                CommandType.StoredProcedure,
+                parametersLogin);
+            int outputValue = Convert.ToInt32(parametersLogin[1].Value);
+            if(outputValue == 1)
+            {
+                return new Dictionary<string, object>() { { "status", "1" }, { "msg", "Logout Successful" } };
+            }
+            if (outputValue == 2)
+            {
+                return new Dictionary<string, object>() { { "status", "2" }, { "msg", "User Already Logged out" } };
+            }
+            else
+            {
+                return new Dictionary<string, object>() { { "status", "99" }, { "msg", "Error Logging out" } };
+            }
+        }
     }
 }
